@@ -14,12 +14,15 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <form method="POST" action="add">
+        <form method="POST" action="controler">
             nombre:<input type="text" name="nombre"/>
             apellido:<input type="text" name="apellido"/>
+            <input type="hiddem" name="exe" value="add"/>
+            
             <br><br>
-            <input type="submit" value="agregar"/>
+            <input type="submit" value="guardar"/>
             </<form>
+                
                
         <%List<Alumno> alumnos = (List<Alumno>)session.getAttribute("alumnos");%>
         
