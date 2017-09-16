@@ -7,6 +7,8 @@
 <%@page import="com.eduit.clase3.entities.Alumno"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -28,7 +30,6 @@
         </form>
 
 
-        <%List<Alumno> alumnos = (List<Alumno>) session.getAttribute("alumnos");%>
 
         <table border="2">
 
@@ -39,29 +40,59 @@
                 <td>borrar</td>
             </tr>
 
-            <%if (alumnos != null) {%>
-            <%for (Alumno a : alumnos) {%>
+            
+            
+            <c:forEach var="a" items="${sessionScope.alumnos}">
 
             <tr>
-                <td><%=a.getId()%></td>
-                <td><%=a.getNombre()%></td>
-                <td><%=a.getApellido()%></td>
+                <td>${a.id}</td>
+                <td>${a.nombre}</td>
+                <td>${a.apellido}</td>
 
                 <td>
                     <form method="POST" action="controler">                
-                        <input type="hidden" name="id" value="<%=a.getId()%>"/>    
+                        <input type="hidden" name="id" value="${a.id}"/>    
                         <input type="hidden" name="exe" value="delete"/>
                         <input type="submit" value="borrar"/>
                     </form>
                 </td>
+            </c:forEach>
                 
             </tr>
+            
 
-
-
-            <%}%>
-            <%}%>         
+        
 
         </table>
+          
+            
+            <hr>
+                <c:out value="1+1"/>
+                <%= 1+1 %>
+                
+            <hr>
+                <c:set var="num" value="${10}" scope="session"/>
+                <c:out value="${sessionScope.num}"/>
+                <c:if test="${num==10}">
+                    diez
+                </c:if>
+                  
+            <hr>
+                <c:set var="num" value="${10}" scope="session"/>
+                <c:choose>
+                    <c:when test="${num==5}">
+                        cinco
+                    </c:when>
+                    <c:when test="${num==10}">
+                        10
+                    </c:when> 
+                    <c:otherwise>
+                        ninguno
+                    </c:otherwise>
+                </c:choose>
+            <hr>
+            <c:forEach var="a" items="${sessionScope.alumnos}">
+                <c:out value="${a.nombre}"/>
+            </c:forEach>
     </body>
 </html>
