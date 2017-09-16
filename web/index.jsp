@@ -17,29 +17,44 @@
         <form method="POST" action="controler">
             nombre:<input type="text" name="nombre"/>
             apellido:<input type="text" name="apellido"/>
-            <input type="hiddem" name="exe" value="add"/>
-            
+            <input type="hidden" name="exe" value="add"/>
+
             <br><br>
-            <input type="submit" value="guardar"/>
-            </<form>
-                
-               
-        <%List<Alumno> alumnos = (List<Alumno>)session.getAttribute("alumnos");%>
-        
+            <input type="submit" value="agregar"/>
+        </form>
+
+
+        <%List<Alumno> alumnos = (List<Alumno>) session.getAttribute("alumnos");%>
+
         <table border="2">
-            
+
             <tr>
                 <td>id</td>
                 <td>nombre</td>
                 <td>apellido</td>
+                <td>borrar</td>               
             </tr>
-            <%if(alumnos != null){%>
-            <%for(Alumno a: alumnos){%>
+
+            <%if (alumnos != null) {%>
+            <%for (Alumno a : alumnos) {%>
+
             <tr>
                 <td><%=a.getId()%></td>
                 <td><%=a.getNombre()%></td>
                 <td><%=a.getApellido()%></td>
+
+                <td>
+                    <form method="POST" action="controler">                
+                        <input type="hidden" name="id" value="<%=a.getId()%>"/>    
+                        <input type="hidden" name="exe" value="delete"/>
+                        <input type="submit" value="borrar"/>
+                    </form>
+                </td>
             </tr>
+
+
+
+
             <%}%>
             <%}%>         
 

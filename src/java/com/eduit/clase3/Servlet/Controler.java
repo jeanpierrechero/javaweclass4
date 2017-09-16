@@ -19,18 +19,31 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author educacionit
  */
-
-    
 @WebServlet(name = "pss", urlPatterns = "/controler")
 
 public class Controler extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        
-        response.sendRedirect("index.jsp");
-  
-  }
-}
-    
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String exe = request.getParameter("exe");
+        String redirect = "";
 
+        if (exe.equals("add")) {
+            String nombre = request.getParameter("nombre");
+            String apellido = request.getParameter("apellido");
+
+            Alumno alumno = new Alumno(nombre, apellido);
+            AlumnoDAO.save(alumno);
+            redirect = "index.jsp";
+        } else if (exe.equals("delete")) {
+            String sid = request.getParameter("id");
+            long id = Long.parseLong(sid);
+            AlumnoDAO.delete(id);
+            redirect = "index.jsp";
+        }
+        List<Alumno> alumnos = AlumnoDAO.getAll();
+        request.getSession().setAttribute("alumnos", alumnos);
+        response.sendRedirect("index.jsp");
+
+    }
+}
