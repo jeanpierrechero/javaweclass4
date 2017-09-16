@@ -22,6 +22,10 @@
             <br><br>
             <input type="submit" value="agregar"/>
         </form>
+        <form method = "POST" action="controler"> 
+            <input type="hidden" name="exe" value="list"/>
+            <input type="submit" value="listar"/>
+        </form>
 
 
         <%List<Alumno> alumnos = (List<Alumno>) session.getAttribute("alumnos");%>
@@ -32,7 +36,7 @@
                 <td>id</td>
                 <td>nombre</td>
                 <td>apellido</td>
-                <td>borrar</td>               
+                <td>borrar</td>
             </tr>
 
             <%if (alumnos != null) {%>
@@ -50,8 +54,8 @@
                         <input type="submit" value="borrar"/>
                     </form>
                 </td>
+                
             </tr>
-
 
 
 
